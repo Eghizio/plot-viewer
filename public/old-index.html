@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plot Viewer</title>
+    <style>
+    body{
+        background-color: #222;
+        color: #fff;
+        text-align: center;
+    }
+    h2{
+        display: inline-block;
+    }
+    select{
+        margin-left: 5px;
+        height: 2em;
+    }
+    .code-container{
+        margin: 10px 1;
+    }
+    .code{
+        display: inline-block;
+        margin: 0 1vw;
+        width: 90%;
+        height: auto;
+    }
+    </style>
+</head>
+<body>
+    <!-- template -->
+    <h1>Plot Viewer</h1>
+
+    <nav>
+        <h2>Selected Folder</h2>
+        <select id="folders"></select>
+    </nav>
+    <!-- template -->
+    <!-- embedd imgs -->
+    <script> // generate imgs component and embedd it
+        const plot_folders = {};
+        const createPlot = (path) => `<div class="code-container"> <h3>${path.split("/").pop().replace(".png","")}</h3> <img class="code" src="${path}"> </div>`;
+        const generateHTML = (paths) => `<div class="folder ${paths[0].split("/")[1]}">${paths.map(path => createPlot(path)).reduce((acc,el) => acc+el,"")}</div>`;
+
+        const toggleFolder = (e) => {
+            const selectedFolder = e.target.options[e.target.selectedIndex].value;
+            
+            const divs = [...document.querySelectorAll(".folder")];
+            divs.forEach(el => el.remove());
+            
+            const content = generateHTML(plot_folders.folders[selectedFolder]);
+            document.body.innerHTML += content;
+
+            //had to hack that self deleting somehow xd but now doesnt updates the text :V
+            document.getElementById("folders").addEventListener("change", (e) => toggleFolder(e));
+        };
+        
+        fetch("/api/plots").then(res => res.json())
+            .then(paths => {
+                const plotPaths = paths.filter(el => el.endsWith(".png")); //get only images(plots always in png format)
+                
+                const folderNames = [...new Set(plotPaths.map(el => el.split("/")[1]))]; //shift-pop to get middle stuff. tho at this moment there is 1 depth so no need 4 nesting
+                const folders = folderNames.reduce((acc, name) => ({ ...acc, [name]: plotPaths.filter(path => path.includes(name+"/")) }), {}); // groups all imgs to its folder
+                plot_folders.folders = folders;
+
+                // Create options for folder select
+                const options = folderNames.reduce((acc, name) => acc+`<option value="${name}">${name}</option>`, "");
+                document.getElementById("folders").innerHTML = options;
+
+                const contents = Object.keys(folders).map(k => generateHTML(folders[k]));
+
+                document.body.innerHTML += contents[0];
+            }).then(() => {
+                // Listener kept deleting itself after firing for some reason lul
+                document.getElementById("folders").addEventListener("change", (e) => toggleFolder(e));
+            }).catch(err => console.error(err));
+    </script>
+</body>
+</html>

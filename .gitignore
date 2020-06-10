@@ -1,0 +1,37 @@
+node_modules
+old_plots
+plots/arima/*
+plots/data/*
+plots/isolation_forest_arima/*
+plots/isolation_forest_lstm/*
+plots/lstm/*
+!plots/arima/data1_C21L004A_ARIMA(6, 1, 1).png
+!plots/arima/data1_C21L005A_ARIMA(0, 0, 0).png
+!plots/arima/data1_C21L006A_ARIMA(0, 0, 0).png
+!plots/arima/data1_C21L007A_ARIMA(4, 1, 1).png
+!plots/arima/data1_C24T028A - C24T029A_ARIMA(0, 2, 0).png
+!plots/arima/data1_C53X129A_ARIMA(1, 0, 0).png
+!plots/data/C21L004A.png
+!plots/data/C21L005A.png
+!plots/data/C21L006A.png
+!plots/data/C21L007A.png
+!plots/data/C24T028A - C24T029A.png
+!plots/data/C53X129A.png
+!plots/isolation_forest_arima/data1_C21L004A_ARIMA(6, 1, 1).png
+!plots/isolation_forest_arima/data1_C21L005A_ARIMA(0, 0, 0).png
+!plots/isolation_forest_arima/data1_C21L006A_ARIMA(0, 0, 0).png
+!plots/isolation_forest_arima/data1_C21L007A_ARIMA(4, 1, 1).png
+!plots/isolation_forest_arima/data1_C24T028A - C24T029A_ARIMA(0, 2, 0).png
+!plots/isolation_forest_arima/data1_C53X129A_ARIMA(1, 0, 0).png
+!plots/isolation_forest_lstm/data1_C21L004A_LSTM.png
+!plots/isolation_forest_lstm/data1_C21L005A_LSTM.png
+!plots/isolation_forest_lstm/data1_C21L006A_LSTM.png
+!plots/isolation_forest_lstm/data1_C21L007A_LSTM.png
+!plots/isolation_forest_lstm/data1_C24T028A - C24T029A_LSTM.png
+!plots/isolation_forest_lstm/data1_C53X129A_LSTM.png
+!plots/lstm/data1_C21L004A.png
+!plots/lstm/data1_C21L005A.png
+!plots/lstm/data1_C21L006A.png
+!plots/lstm/data1_C21L007A.png
+!plots/lstm/data1_C24T028A - C24T029A.png
+!plots/lstm/data1_C53X129A.png
