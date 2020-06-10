@@ -1,0 +1,42 @@
+body{
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+}
+
+.link-hover{
+    color: inherit;
+    text-decoration: inherit;
+    border-radius: 5px;
+    padding: 1rem;
+}
+.link-hover:hover{
+    background-color: #333;
+}
+
+.selected{ display: block; }
+.hidden{ display: none; }
+
+.plot-container{
+    margin: 10px 1;
+}
+.plot{
+    display: inline-block;
+    margin: 0 1vw;
+    width: 90%;
+    height: auto;
+}
+
+footer{
+    margin-top: 50px;
+    margin-bottom: 10px;
+    display: inline-flex;
+}
+.source{
+    color: inherit;
+    text-decoration: inherit;
+    padding: 1rem;
+}
+.source:hover{
+    color: dodgerblue;
+}

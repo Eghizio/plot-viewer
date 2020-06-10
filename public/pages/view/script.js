@@ -1,0 +1,1 @@
+selectPlotsPopulation(document.getElementById("folders"), document.getElementById("main"));

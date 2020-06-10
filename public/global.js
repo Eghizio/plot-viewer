@@ -1,6 +1,11 @@
-(async () => {
-    // Get Plots and their folder names
-    const paths = await fetch("/api/plots").then(res => res.json());
+// customize for view and compare #todo
+const selectPlotsPopulation = async (selectElement, outputElement) => {
+    const ID = '_' + Math.random().toString(36).substr(2, 9);
+
+    // Fetch paths
+    const paths = await fetch("/api/plots").then(res => res.json()); // extract it, add cache
+
+    // Parse Plots and their folder names
     const folders = paths.map(path => path.replace("plots/", "")).reduce((acc, el) => {
         const [folder, plot] = el.split("/");
         if(!acc[folder]) acc[folder] = [];
@@ -9,10 +14,9 @@
     }, {});
 
     // Set title to currently displayed folder (first)
-    document.title = `${Object.keys(folders)[0]} - Plot Viewer`;
+    document.title = `${Object.keys(folders)[0]} - Plot Viewer - View`;
 
     // Bind folder names to Select
-    const selectElement = document.getElementById("folders");
     Object.keys(folders).forEach(name => {
         const optionElement = document.createElement("option");
         optionElement.value = name;
@@ -31,7 +35,7 @@
         
         const plotImage = document.createElement("img");
         plotImage.classList.add("plot");
-        plotImage.src = `plots/${name}/${plot}`;
+        plotImage.src = `/plots/${name}/${plot}`;
 
         containerElement.appendChild(label);
         containerElement.appendChild(plotImage);
@@ -46,7 +50,7 @@
         const folderElement = document.createElement("div");
 
         folderElement.classList.add("folder");
-        folderElement.classList.add(name);
+        folderElement.classList.add(name+ID);
         const display = i===0 ? "selected" : "hidden";
         folderElement.classList.add(display);
 
@@ -67,25 +71,25 @@
         folderElements.appendChild(folderElement);
     });
 
-    document.body.appendChild(folderElements);
+    outputElement.appendChild(folderElements);
 
     selectElement.addEventListener("change", (e) => {
         const folders = [...e.target.options].map(folder => folder.value);
         const selectedFolder =  folders[e.target.selectedIndex];
 
         // Hide all
-        document.querySelectorAll("div.folder").forEach(folder => {
-            folder.classList.remove("selected");
-            folder.classList.add("hidden");
+        folders.forEach(folder => {
+            const element = document.querySelector(`div.folder.${folder+ID}`);
+            element.classList.remove("selected");
+            element.classList.add("hidden");
         });
 
         // Show selected
-        const selected = document.querySelector(`div.folder.${selectedFolder}`);
+        const selected = document.querySelector(`div.folder.${selectedFolder+ID}`);
         selected.classList.remove("hidden");
         selected.classList.add("selected");
 
         // Set title to currently displayed folder
-        document.title = `${selectedFolder} - Plot Viewer`;
+        document.title = `${selectedFolder} - Plot Viewer - View`; //does change on compare
     });
-
-})();
+};
