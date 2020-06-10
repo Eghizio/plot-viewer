@@ -1,0 +1,26 @@
+body{
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+}
+h2{
+    display: inline-block;
+}
+select{
+    margin-left: 5px;
+    height: 2em;
+    font-size: 24px;
+}
+
+.selected{ display: block; }
+.hidden{ display: none; }
+
+.plot-container{
+    margin: 10px 1;
+}
+.plot{
+    display: inline-block;
+    margin: 0 1vw;
+    width: 90%;
+    height: auto;
+}
