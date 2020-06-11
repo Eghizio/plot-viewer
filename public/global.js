@@ -1,7 +1,40 @@
 const fetchPaths = async () => await fetch("/api/plots").then(res => res.json());
 
-// customize for view and compare #todo
-const selectPlotsPopulation = (paths, selectElement, outputElement) => {
+const addCollumn = (parent, paths, removable=true) => {
+    const articleElement = document.createElement("article");
+    articleElement.classList.add("collumn");
+
+    const selectElement = addNavigation(articleElement, removable);
+    populateCollumn(articleElement, selectElement, paths);
+
+    parent.appendChild(articleElement);
+};
+
+const addNavigation = (parent, removable=true) => {
+    const navigation = document.createElement("nav");
+    navigation.classList.add("nav-folder");
+
+    const selectElement = document.createElement("select");
+    selectElement.classList.add("select-folder");
+
+    const removeButton = document.createElement("button");
+    removeButton.classList.add("button-remove");
+    removeButton.innerText = "❌";
+    removeButton.title = "Remove collumn";
+
+    removeButton.addEventListener("click", () => {
+        parent.remove();
+    });
+
+    navigation.appendChild(selectElement);
+    if(removable) navigation.appendChild(removeButton);
+
+    parent.appendChild(navigation);
+
+    return selectElement;
+};
+
+const populateCollumn = (parent, selectElement, paths) => {
     const ID = '_' + Math.random().toString(36).substr(2, 9);
 
     // Parse Plots and their folder names
@@ -42,7 +75,7 @@ const selectPlotsPopulation = (paths, selectElement, outputElement) => {
         return containerElement;
     };
     
-    // Generate containers and populate them
+    // Generate plot folders and populate them
     const folderElements = new DocumentFragment();
     Object.entries(folders).forEach((folder, i) => {
         const [name, plots] = folder;
@@ -53,11 +86,6 @@ const selectPlotsPopulation = (paths, selectElement, outputElement) => {
         const display = i===0 ? "selected" : "hidden";
         folderElement.classList.add(display);
 
-        // // Label
-        // const label = document.createElement("h2");
-        // label.innerText = name;
-        // folderElement.appendChild(label);
-
         // Populate
         const plotElements = new DocumentFragment();
         plots.forEach(plot => {
@@ -66,11 +94,10 @@ const selectPlotsPopulation = (paths, selectElement, outputElement) => {
         });
 
         folderElement.appendChild(plotElements);
-
         folderElements.appendChild(folderElement);
     });
 
-    outputElement.appendChild(folderElements);
+    
 
     selectElement.addEventListener("change", (e) => {
         const folders = [...e.target.options].map(folder => folder.value);
@@ -91,4 +118,6 @@ const selectPlotsPopulation = (paths, selectElement, outputElement) => {
         // Set title to currently displayed folder
         document.title = `${selectedFolder} - Plot Viewer - View`; //does change on compare
     });
+
+    parent.appendChild(folderElements);
 };

@@ -15,6 +15,16 @@ li{
     display: inline;
 }
 
+.link{
+    color: dodgerblue;
+    text-decoration: none;
+}
+
+.link:hover{
+    color: deepskyblue;
+    text-decoration: underline;
+}
+
 footer{
     position: absolute;
     bottom: 0;
