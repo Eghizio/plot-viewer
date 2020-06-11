@@ -1,14 +1,14 @@
 {
-  "name": "plotviewer",
+  "name": "plot-viewer",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple application for displaying PNG plots generated with matplotlib pyplot from my engineering thesis. Contains sample plots.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["visualization", "predictive maintenance", "time series", "forecasting", "anomaly detection"],
+  "author": "Jakub Wąsik (https://github.com/Eghizio)",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"

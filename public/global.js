@@ -1,9 +1,8 @@
-// customize for view and compare #todo
-const selectPlotsPopulation = async (selectElement, outputElement) => {
-    const ID = '_' + Math.random().toString(36).substr(2, 9);
+const fetchPaths = async () => await fetch("/api/plots").then(res => res.json());
 
-    // Fetch paths
-    const paths = await fetch("/api/plots").then(res => res.json()); // extract it, add cache
+// customize for view and compare #todo
+const selectPlotsPopulation = (paths, selectElement, outputElement) => {
+    const ID = '_' + Math.random().toString(36).substr(2, 9);
 
     // Parse Plots and their folder names
     const folders = paths.map(path => path.replace("plots/", "")).reduce((acc, el) => {
